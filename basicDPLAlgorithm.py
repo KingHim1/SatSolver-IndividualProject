@@ -50,7 +50,7 @@ def getNewLiteral(untestedLiterals, literals, nbvar):
 
 
 def unitPropagation(nbvar, untestedLiterals, literals, clauses):
-    print(clauses)
+    # print(clauses)
     clauseCopy = copy.deepcopy(clauses)
     numOfUnitClauses = 1
     while numOfUnitClauses > 0:
@@ -168,7 +168,7 @@ unassignedVariables = untestedLiterals
 #print(watchedLiterals)
 
 def createWatchedLits(clauses, nbvar):
-    print("CREATE WATCHED LITERALS")
+    # print("CREATE WATCHED LITERALS")
     watchedLiterals =[[[],[]] for x in range(nbvar)]
     for x in range(0, len(clauses)):
         firstLit = copy.deepcopy(clauses[x][0])
@@ -184,22 +184,22 @@ def createWatchedLits(clauses, nbvar):
     return(watchedLiterals)
 
 def updateWatchedLits(watchedLiterals, variableValue, literal):
-    print("UPDATING WATCHED LITERALS")
-    print("Variable = " + str(abs(literal)) + "; Value = " + str(variableValue))
+    # print("UPDATING WATCHED LITERALS")
+    # print("Variable = " + str(abs(literal)) + "; Value = " + str(variableValue))
     if variableValue ==1:
-        print("CLAUSE NUMBERS FOR LITERAL -" + str(literal))
-        print(watchedLiterals[abs(literal)-1][0])
+        # print("CLAUSE NUMBERS FOR LITERAL -" + str(literal))
+        # print(watchedLiterals[abs(literal)-1][0])
         clauseNumber = copy.deepcopy(watchedLiterals[abs(literal)-1][0])
         for x in clauseNumber:
             clause = clauses[x]
-            print(x)
+            # print(x)
 #            previousIndex = clause.index(-abs(literal))
             if clause[0] == -abs(literal):
                 previousIndex = 0
-                print("GOT 0")
+                # print("GOT 0")
             elif clause[1] == -abs(literal):
                 previousIndex = 1
-                print("GOT 1")
+                # print("GOT 1")
             else:
                 previousIndex = 2;
             swapped = False
@@ -207,8 +207,8 @@ def updateWatchedLits(watchedLiterals, variableValue, literal):
                 for y in range(2, len(clause)):
                     if not swapped:
                         if (variableVals[abs(clause[y])-1] == "u" or litValue(clause[y], variableVals[abs(clause[y])-1]) == 1) and clause[y]!=0:
-                            print("ORIGINAL CLAUSE")
-                            print(clause)
+                            # print("ORIGINAL CLAUSE")
+                            # print(clause)
                             swapped = True
 #                            print(watchedLiterals[abs(literal)-1][0])
 #                            print(y)
@@ -221,34 +221,34 @@ def updateWatchedLits(watchedLiterals, variableValue, literal):
                             temp2 = copy.deepcopy(clause[previousIndex])
                             clause[y] = temp2
                             clause[previousIndex]= temp1
-                            print("NEW CLAUSE")
-                            print(clauses)
-                            print(clause)
-                            print("UPDATED WATCHED LITERALS OF: " + str(literal))
-                            print(watchedLiterals[abs(clause[y])-1])
-                            print("----------")
+                            # print("NEW CLAUSE")
+                            # print(clauses)
+                            # print(clause)
+                            # print("UPDATED WATCHED LITERALS OF: " + str(literal))
+                            # print(watchedLiterals[abs(clause[y])-1])
+                            # print("----------")
     else:
-        print("CLAUSE NUMBERS FOR LITERAL " + str(literal))
-        print(watchedLiterals[abs(literal)-1][1])
+        # print("CLAUSE NUMBERS FOR LITERAL " + str(literal))
+        # print(watchedLiterals[abs(literal)-1][1])
         watchedLitsCopy = copy.deepcopy(watchedLiterals[abs(literal)-1][1])
         for clauseNum in watchedLitsCopy:
             clause = clauses[clauseNum]
-            print(clauseNum)
+            # print(clauseNum)
             swapped = False
             previousIndex = clause.index(abs(literal))
-            print("PREVIOUS INDEX:" + str(previousIndex))
+            # print("PREVIOUS INDEX:" + str(previousIndex))
             if previousIndex <= 1:
                 for x in range(2, len(clause)):
                     if not swapped:
                         if (variableVals[abs(clause[x])-1] == "u" or litValue(clause[x], variableVals[abs(clause[x])-1]) == 1) and clause[x]!=0:
                             swapped = True
-                            print("ORIGINAL CLAUSE")
-                            print(clause)
-                            print("WATCHED LITERALS FOR ORIGINAL CLAUSE")
-                            print(watchedLiterals[abs(literal)-1][1])
+                            # print("ORIGINAL CLAUSE")
+                            # print(clause)
+                            # print("WATCHED LITERALS FOR ORIGINAL CLAUSE")
+                            # print(watchedLiterals[abs(literal)-1][1])
                             watchedLiterals[abs(literal)-1][1].remove(clauseNum)
-                            print("WATCHED LITERALS AFTER CHANGING CLAUSE")
-                            print(watchedLiterals[abs(literal)-1][1])
+                            # print("WATCHED LITERALS AFTER CHANGING CLAUSE")
+                            # print(watchedLiterals[abs(literal)-1][1])
                             if clause[x] < 0:
                                 watchedLiterals[abs(clause[x])-1][0].append(clauseNum)
                                 temp1 = copy.deepcopy(clause[x])
@@ -263,19 +263,19 @@ def updateWatchedLits(watchedLiterals, variableValue, literal):
                                 clause[x] = temp2
                                 clause[previousIndex] = temp1
 #                                clause[x], clause[previousIndex] = clause[previousIndex], clause[x]
-                            print("NEW CLAUSE")
-                            print(clause)
-                            print("UPDATED WATCHED LITERALS OF: " + str(literal))
-                            print(watchedLiterals[abs(clause[x])-1])
-                            print("CLAUSES")
-                            print(clauses)
-                            print("----------")
+#                             print("NEW CLAUSE")
+#                             print(clause)
+#                             print("UPDATED WATCHED LITERALS OF: " + str(literal))
+#                             print(watchedLiterals[abs(clause[x])-1])
+#                             print("CLAUSES")
+#                             print(clauses)
+#                             print("----------")
 
 def watchedLitsAdd(watchedLiterals, clause, numOfClause):
-    print("ADD TO WATCHED LITERALS")
+    # print("ADD TO WATCHED LITERALS")
 #    print(clause)
 #    print(numOfClause)
-    print(clauses)
+#     print(clauses)
     clause.remove(0)
     clause.append(0)
     if clause[0] < 0:
@@ -286,18 +286,18 @@ def watchedLitsAdd(watchedLiterals, clause, numOfClause):
         watchedLiterals[abs(clause[1])-1][0].append(numOfClause -1)
     else:
         watchedLiterals[abs(clause[1])-1][1].append(numOfClause -1)
-    print(watchedLiterals[abs(clause[0])-1])
-    print(watchedLiterals[abs(clause[1])-1])
-    print("START ADD")
-    for x in watchedLiterals[abs(clause[0])-1][0]:
-        print(clauses[abs(x)])
-    for x in watchedLiterals[abs(clause[0])-1][1]:
-        print(clauses[abs(x)])
-    for x in watchedLiterals[abs(clause[1])-1][0]:
-        print(clauses[abs(x)])
-    for x in watchedLiterals[abs(clause[1])-1][1]:
-        print(clauses[abs(x)])
-    print("STOP ADD")
+    # print(watchedLiterals[abs(clause[0])-1])
+    # print(watchedLiterals[abs(clause[1])-1])
+    # print("START ADD")
+    # for x in watchedLiterals[abs(clause[0])-1][0]:
+    #     print(clauses[abs(x)])
+    # for x in watchedLiterals[abs(clause[0])-1][1]:
+    #     print(clauses[abs(x)])
+    # for x in watchedLiterals[abs(clause[1])-1][0]:
+    #     print(clauses[abs(x)])
+    # for x in watchedLiterals[abs(clause[1])-1][1]:
+    #     print(clauses[abs(x)])
+    # print("STOP ADD")
 
 def litValue(clauseLiteral, variableValue):
     if clauseLiteral < 0:
@@ -317,25 +317,25 @@ def litValue(clauseLiteral, variableValue):
 
 
 def clauseStatus(clause):
-    print("CLAUSE STATUS")
+    # print("CLAUSE STATUS")
     refA = litValue(clause[0], variableVals[abs(clause[0])-1])
-    print(clause[0])
-    print(clause[1])
+    # print(clause[0])
+    # print(clause[1])
     if clause[1] == 0 and variableVals[abs(clause[0])-1] =="u":
-        print("UNIT")
+        # print("UNIT")
         return "UNIT"
     refB = litValue(clause[1], variableVals[abs(clause[1])-1])
     if refA == 1 or refB == 1:
-        print("SATISIFIED")
+        # print("SATISIFIED")
         return "SATISFIED"
     elif refA == 0 and refB == 0:
-        print("UNSAT")
+        # print("UNSAT")
         return "UNSATISFIED"
     elif (refA == "u" or refB == "u") and refA != refB:
-        print("UNIT")
+        # print("UNIT")
         return "UNIT"
     else:
-        print("UNRES")
+        # print("UNRES")
         return "UNRESOLVED"
 
 def numLitInClauseWithDL(clause, dl):
@@ -360,7 +360,7 @@ def resolution(list1, list2):
     return(l1+l2)
 
 def conflictAnalysis(clauses, variableVals, variableAntecedents, variableDecisionLevels, nbvar, nbclause, unassignedVariables, watchedLiterals, maxDL):
-    print("CONFLICT ANALYSIS")
+    # print("CONFLICT ANALYSIS")
     previousIntermediate = copy.deepcopy(variableAntecedents[nbvar])
     nextIntermediate = []
     i = maxDL
@@ -377,35 +377,35 @@ def conflictAnalysis(clauses, variableVals, variableAntecedents, variableDecisio
     return nextIntermediate
 
 def conflictAnalysisUIP(clauses, variableVals, variableAntecedents, variableDecisionLevels, nbvar, nbclause, unassignedVariables, watchedLiterals, decisionLevel):
-    print("CONFLICT ANALYSIS")
+    # print("CONFLICT ANALYSIS")
     previousIntermediate = copy.deepcopy(variableAntecedents[nbvar])
     nextIntermediate = copy.deepcopy(variableAntecedents[nbvar])
     loopBool = True
     while loopBool:
-        print(variableAntecedents[nbvar])
+        # print(variableAntecedents[nbvar])
         for x in variableAntecedents[nbvar]:
             pcPreviousIntermediate = copy.deepcopy(previousIntermediate)
             numberOfLiteralsInClauseWithDL = numLitInClauseWithDL(previousIntermediate, decisionLevel)
-            print("NUMBER OF LITERALS IN CLAUSES WITH DECISION LEVEL: " + str(decisionLevel))
-            print(numberOfLiteralsInClauseWithDL)
+            # print("NUMBER OF LITERALS IN CLAUSES WITH DECISION LEVEL: " + str(decisionLevel))
+            # print(numberOfLiteralsInClauseWithDL)
             if numberOfLiteralsInClauseWithDL[0] == 1:
                 loopBool = False
-                print("PREVIOUS INTERMEDIATE AND MINIMUM DECISION LEVEL IN CLAUSE")
-                print([previousIntermediate, numberOfLiteralsInClauseWithDL[1]])
+                # print("PREVIOUS INTERMEDIATE AND MINIMUM DECISION LEVEL IN CLAUSE")
+                # print([previousIntermediate, numberOfLiteralsInClauseWithDL[1]])
                 return ([previousIntermediate, numberOfLiteralsInClauseWithDL[1]])
             else:
-                print("ELSE")
-                print(pcPreviousIntermediate)
+                # print("ELSE")
+                # print(pcPreviousIntermediate)
                 for literal in pcPreviousIntermediate:
-                    print(literal)
-                    print(variableDecisionLevels[abs(literal)-1])
+                    # print(literal)
+                    # print(variableDecisionLevels[abs(literal)-1])
                     if variableDecisionLevels[abs(literal)-1] == decisionLevel and variableAntecedents[abs(literal)-1] != None and literal != 0:
                         nextIntermediate = resolution(previousIntermediate, clauses[variableAntecedents[abs(literal)-1]])
-                        print("RESOLVE CLAUSES: ")
-                        print(previousIntermediate)
-                        print(clauses[variableAntecedents[abs(literal)-1]])
-                        print("RESOLVED CLAUSE: ")
-                        print(nextIntermediate)
+                        # print("RESOLVE CLAUSES: ")
+                        # print(previousIntermediate)
+                        # print(clauses[variableAntecedents[abs(literal)-1]])
+                        # print("RESOLVED CLAUSE: ")
+                        # print(nextIntermediate)
                     if nextIntermediate == previousIntermediate:
                         loopBool = False
                     previousIntermediate = copy.deepcopy(nextIntermediate)
@@ -420,7 +420,7 @@ def conflictAnalysisUIP(clauses, variableVals, variableAntecedents, variableDeci
 
 
 def unitPropCDCL(clauses, variableVals, variableAntecedents, variableDecisionLevels, nbvar, nbclause, unassignedVariables, watchedLiterals, decisionLevel):
-    print("UNIT PROPAGATION STEP")
+    # print("UNIT PROPAGATION STEP")
     clauseCopy = copy.deepcopy(clauses)
     numOfUnitClauses = 1
     while numOfUnitClauses > 0:
@@ -469,18 +469,18 @@ def unitPropCDCL(clauses, variableVals, variableAntecedents, variableDecisionLev
 #                    dl.append(0)
 #                    dl = max(dl)
                     variableDecisionLevels[abs(clause[1])-1] = decisionLevel
-                print("ANTECEDENTS")
-                print(variableAntecedents)
-                print("DECISION LEVELS")
-                print(variableDecisionLevels)
-                print("VARIABLE VALS")
-                print(variableVals)
+                # print("ANTECEDENTS")
+                # print(variableAntecedents)
+                # print("DECISION LEVELS")
+                # print(variableDecisionLevels)
+                # print("VARIABLE VALS")
+                # print(variableVals)
 
 
 def backtrack(conflictAnalysis, variableVals, variableAntecedents, variableDecisionLevels, unassignedVariables, watchedLiterals):
-    print("\n\nBACKTRACK")
-    print(clauses)
-    print(conflictAnalysis)
+    # print("\n\nBACKTRACK")
+    # print(clauses)
+    # print(conflictAnalysis)
     backtrackVar = 0
     backtrackVarVal = 0
     for variableDL in range (0, len(variableDecisionLevels)):
@@ -500,10 +500,10 @@ def backtrack(conflictAnalysis, variableVals, variableAntecedents, variableDecis
             backtrackVar = variableDL + 1
             backtrackVarVal = variableVals[variableDL]
     updateWatchedLits(watchedLiterals, literal = backtrackVar, variableValue=backtrackVarVal)
-    print(watchedLiterals)
-    print(variableAntecedents)
-    print(variableDecisionLevels)
-    print(variableVals)
+    # print(watchedLiterals)
+    # print(variableAntecedents)
+    # print(variableDecisionLevels)
+    # print(variableVals)
 
 
 
@@ -557,7 +557,7 @@ def clauseLearningSATsolver(nbclause, nbvar, listOfVariables, literals, clauses,
         variableVals[literal-1] = value
         unassignedVariables.remove(literal)
         variableDecisionLevels[literal-1] = decisionLevel
-        print("\n NEW DECISION \n")
+        # print("\n NEW DECISION \n")
 
 #        print(literal)
 #        print(variableVals)
@@ -615,8 +615,8 @@ watchedLiterals = createWatchedLits(clauses, nbvar)
 # print(variableDecisionLevels)
 # #print(resolution([1,2,3],[-1,2,-3]))
 # print("------------------------")
-# results = clauseLearningSATsolver(nbclause, nbvar, listOfVariables, literals, clauses, variableVals, variableAntecedents, variableDecisionLevels)
-# print(results)
+results = clauseLearningSATsolver(nbclause, nbvar, listOfVariables, literals, clauses, variableVals, variableAntecedents, variableDecisionLevels)
+print(results)
 # print("BREAK")
 # print(data[2])
 
