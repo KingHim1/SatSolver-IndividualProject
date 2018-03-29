@@ -427,6 +427,8 @@ def unitPropCDCL(clauses, variableVals, variableAntecedents, variableDecisionLev
         numOfUnitClauses = 0
         for clause in clauses:
             clstatus = clauseStatus(clause)
+            # print(clstatus)
+            # print(clause)
             if clstatus == "UNSATISFIED":
                 variableAntecedents[nbvar] = clause
 #                print(conflictAnalysis(clauses, variableVals, variableAntecedents, variableDecisionLevels, nbvar, nbclause, unassignedVariables, watchedLiterals, decisionLevel))
@@ -552,6 +554,7 @@ def clauseLearningSATsolver(nbclause, nbvar, listOfVariables, literals, clauses,
         return False
     while(len(unassignedVariables) != 0):
         literal = getNewLiteral(unassignedVariables, literals, nbvar)
+        # print(variableAntecedents)
         decisionLevel += 1
         value = randint(0, 1)
         variableVals[literal-1] = value
@@ -615,8 +618,14 @@ watchedLiterals = createWatchedLits(clauses, nbvar)
 # print(variableDecisionLevels)
 # #print(resolution([1,2,3],[-1,2,-3]))
 # print("------------------------")
+
+#
 results = clauseLearningSATsolver(nbclause, nbvar, listOfVariables, literals, clauses, variableVals, variableAntecedents, variableDecisionLevels)
+print("TEST")
 print(results)
+print(testSatisfiableWithLiterals(nbvar, results[1], clauses))
+
+
 # print("BREAK")
 # print(data[2])
 

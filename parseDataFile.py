@@ -13,6 +13,7 @@
 def parseDataFile(filePath):
     dataFile = open(filePath, "r")
     data = dataFile.read()
+    data = data.rstrip()
     data = data.split("\n")
     nbvar = 0
     nbclause = 0
@@ -24,15 +25,15 @@ def parseDataFile(filePath):
         #       p cnf nbvar nbclauses
         #       cnf = the data type; nbvar = upper bound on the largest index of a variable, and nbclause = number of clauses in the file
         elif line[0] == "p":
-            values = line.split(" ")
+            values = line.split()
             nbvar = int(values[2])
             nbclause = int(values[3])
-        else:
+        elif line[0] == "-" or (line[0].isdigit() and int(line[0]) != 0):
         #       2D array of clauses, inside array is the disjunction of variables
-            clause = line.split(" ")
+            clause = line.split()
             for x in range(0, len(clause)):
-            	clause[x] = int(clause[x])
+                clause[x] = int(clause[x])
             clauses.append(clause)
     return [nbvar, nbclause, clauses]
 
-parseDataFile("test.txt")
+# parseDataFile("test.txt")
